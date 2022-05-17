@@ -12,12 +12,12 @@ from django.contrib.auth.models import BaseUserManager
 class UserProfileManager(BaseUserManager):
     """Manager for user profiles"""
 
-    def create_user(self, email, name, passwords=None):
+    def create_user(self, email, name, password=None):
         """create a new user profile"""
         #checking if the email address has been provided
         if not email:
             raise ValueError('User must have an email address')
-        email = self.normalie_email(email) #to make the email
+        email = self.normalize_email(email) #to make the email
         #address case insensitive
         user = self.model(email=email,name=name)#to create a new user model
 
