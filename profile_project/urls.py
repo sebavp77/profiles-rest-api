@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls import include #enables me to include other files with urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/',include('profiles_api.urls')) #I added this line to include the new url.py file that I created
 ]
