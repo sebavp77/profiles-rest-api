@@ -5,7 +5,18 @@
 from django.urls import path
 from profiles_api import views
 
+########To create the router for our VIEWSet ###############
+from django.urls import include #including list of URLs
+from rest_framework.routers import DefaultRouter #importing routers
+
+
+router = DefaultRouter()
+router.register('hello-viewset', views.HelloViewSet, base_name='hello-viewset') #the url we want to created
+#the sencond argument is the viewset we want to register to that URL, the third
+#argument is name for our viewset (retrieven the URLS in our router)
+
 urlpatterns = [
 #I create a new url named 'hello-view' which is mapped to views.HelloApiView.as_view
-    path('hello-view/',views.HelloApiView.as_view())
+    path('hello-view/',views.HelloApiView.as_view()),
+    path('',include(router.urls))#creating the path to the VIEWsets
 ]
