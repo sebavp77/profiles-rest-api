@@ -18,6 +18,9 @@ from profiles_api import models
 from rest_framework.authentication import TokenAuthentication
 from profiles_api import permissions
 
+############# To serarch profiles #################################
+#################################################################
+from rest_framework import filters
 
 class HelloApiView(APIView):
     """Test API View"""
@@ -117,3 +120,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)#created as touple
     #permission classes say what the user can do
     permission_classes = (permissions.UpdateOwnProfile,)
+
+    ## to search filters
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name','email',) #which fields we can search 
