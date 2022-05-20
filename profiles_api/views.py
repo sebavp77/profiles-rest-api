@@ -22,6 +22,11 @@ from profiles_api import permissions
 #################################################################
 from rest_framework import filters
 
+############# To use token authentication and create a log in ########
+####################################################################
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.settings import api_settings
+
 class HelloApiView(APIView):
     """Test API View"""
     serializer_class = serializers.HelloSerializer
@@ -123,4 +128,9 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
     ## to search filters
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('name','email',) #which fields we can search 
+    search_fields = ('name','email',) #which fields we can search
+
+### To create a log in API views
+class UserLoginApiView(ObtainAuthToken):
+    """Handle creating user authentication tokens"""
+    renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES

@@ -20,5 +20,8 @@ router.register('profile',views.UserProfileViewSet)
 urlpatterns = [
 #I create a new url named 'hello-view' which is mapped to views.HelloApiView.as_view
     path('hello-view/',views.HelloApiView.as_view()),
+    ######to include login API view
+    path('login/',views.UserLoginApiView.as_view()),#this Enables
+    #the django end point (to be seen on the browser)
     path('',include(router.urls))#creating the path to the VIEWsets
 ]
