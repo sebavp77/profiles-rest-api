@@ -14,6 +14,8 @@ router = DefaultRouter()
 router.register('hello-viewset', views.HelloViewSet, base_name='hello-viewset') #the url we want to created
 #the sencond argument is the viewset we want to register to that URL, the third
 #argument is name for our viewset (retrieven the URLS in our router)
+########## Registering the user ViewSet ###################################
+router.register('profile',views.UserProfileViewSet)
 
 urlpatterns = [
 #I create a new url named 'hello-view' which is mapped to views.HelloApiView.as_view

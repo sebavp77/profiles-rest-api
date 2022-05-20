@@ -7,6 +7,18 @@ from profiles_api import serializers #Our created Serliazers
 ############## To create VIEWsets ###################################
 #####################################################################
 from rest_framework import viewsets
+
+
+############ To create profiles ViewSet ##############################
+######################################################################
+from profiles_api import models
+
+################## To use permissions ############################
+##################################################################
+from rest_framework.authentication import TokenAuthentication
+from profiles_api import permissions
+
+
 class HelloApiView(APIView):
     """Test API View"""
     serializer_class = serializers.HelloSerializer
@@ -93,3 +105,15 @@ class HelloViewSet(viewsets.ViewSet):
     def destroy(self, request, pk=None):
         """Handle removing an object"""
         return Response({'http_method':'DELETE'})
+
+###################### Creating a new module ViewSet ############################
+#################################################################################
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """Handle creating, creating and updating profiles"""
+    serializer_class = serializers.UserProfileSerializer
+    queryset = models.UserProfile.objects.all()
+    #How the user will authenticate
+    authentication_classes = (TokenAuthentication,)#created as touple
+    #permission classes say what the user can do
+    permission_classes = (permissions.UpdateOwnProfile,)
