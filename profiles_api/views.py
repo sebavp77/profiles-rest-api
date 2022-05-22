@@ -27,6 +27,15 @@ from rest_framework import filters
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 
+########## to import a new permission and fix the error
+########## about delete items when you are not
+########## authenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
+### Only authenticated users can see posts
+from rest_framework.permissions import IsAuthenticated
+
+
 class HelloApiView(APIView):
     """Test API View"""
     serializer_class = serializers.HelloSerializer
@@ -134,3 +143,33 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 class UserLoginApiView(ObtainAuthToken):
     """Handle creating user authentication tokens"""
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
+
+
+######### Create ViewSet for our profile feed item ##############
+################################################################
+################################################################
+class UserProfileFeedViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading and updating profile feed items"""
+    # We'll use thoken authentication to authenticate requests
+    # Through our end points
+    authentication_classes = (TokenAuthentication,)
+    # we are gonna set the serializer class to the serializer we
+    # created previously
+    serializer_class = serializers.ProfileFeedItemSerializer
+    # Assign the query set that is gonna manage thoruh our serializer
+    queryset = models.ProfileFeedItem.objects.all()
+    ### to make the 'user_profile' to read only
+
+    ####### to fix the error when delet objects without
+    ####### beign Authenticated
+    permission_classes = (
+        permissions.UpdateOwnStatus,
+        IsAuthenticated #only authenticated users can see posts 
+        #IsAuthenticatedOrReadOnly
+    )
+
+    def perform_create(self, serializer):
+        """Sets the user profile to the logged in user"""
+        # this functions gets called every time that you do a
+        # http push to our user
+        serializer.save(user_profile=self.request.user)

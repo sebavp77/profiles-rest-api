@@ -6,3 +6,7 @@ from profiles_api import models
 #### Registering my models #####
 ################################
 admin.site.register(models.UserProfile)
+
+### Adding profile feed model to admin ##########
+#################################################
+admin.site.register(models.ProfileFeedItem)

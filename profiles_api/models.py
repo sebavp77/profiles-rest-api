@@ -3,7 +3,9 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 # Create your models here.
-
+################## Adding a new model item #####################
+################################################################3
+from django.conf import settings
 ##################################################################
 ##################################################################
 ################## Creating a Custom User manager ###############
@@ -76,3 +78,19 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         """Retrieve string representation of user"""
         return (self.email)
+################### Creating a new model ###########################
+####################################################################
+class ProfileFeedItem(models.Model):
+    """Profile status update"""
+    user_profile = models.ForeignKey(settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE)#First argument is the models
+    #we want to create a relationship, the second argument is the delete
+    #it tells what to do if an user profile is deleted
+    #the next field is the status, which says the state
+    status_text = models.CharField(max_length=255)
+    created_on = models.DateTimeField(auto_now_add=True)
+    #what to do when we converte a models instance inot a Registering
+
+    def __str__(self):
+        """Return the model as a string"""
+        return self.status_text

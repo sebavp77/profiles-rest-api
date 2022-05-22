@@ -39,3 +39,21 @@ class UserProfileSerializer(serializers.ModelSerializer):
             instance.set_password(password)
 
         return super().update(instance, validated_data)
+
+
+########### Create profile feed item serializer #########
+#########################################################
+##########################################################
+class ProfileFeedItemSerializer(serializers.ModelSerializer):
+    """Serializes profile feed items"""
+
+    class Meta: #This sets our profile feed serialized to our
+    #ProfieFeedItem class that we create before in modules.py
+        model = models.ProfileFeedItem
+        fields = ('id','user_profile','status_text','created_on')
+        # the id makes reference that each object created in django
+        # has an id assigned and we will work with that id
+        #the only items that are writtable are 'status_text'  and
+        # 'users_profile'
+        # for security reasons we'll assign 'user_profile' read only
+        extra_kwargs = {'user_profile':{'read_only':True}}

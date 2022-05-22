@@ -16,7 +16,10 @@ router.register('hello-viewset', views.HelloViewSet, base_name='hello-viewset') 
 #argument is name for our viewset (retrieven the URLS in our router)
 ########## Registering the user ViewSet ###################################
 router.register('profile',views.UserProfileViewSet)
-
+################ registering the user feed viewset profile user ##########
+########################################################################
+#########################################################################
+router.register('feed', views.UserProfileFeedViewSet)
 urlpatterns = [
 #I create a new url named 'hello-view' which is mapped to views.HelloApiView.as_view
     path('hello-view/',views.HelloApiView.as_view()),
