@@ -23,7 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'o022z!n%#bv^i#1h3h$w2(#5u=o&lb31j(gbb#7(+!qu#4eo$g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+## Once it is uploaded to a public server
+DEBUG = bool(int(os.environ.get('DEBUG',1)))
 
 ALLOWED_HOSTS = []
 
@@ -127,3 +129,7 @@ STATIC_URL = '/static/'
 #################### This line tell django to use my user profile ###########
 #################### instead of the default profile ########################
 AUTH_USER_MODEL = 'profiles_api.UserProfile'
+
+####### Adding a static root to debug for the virutal server ###############
+# Here Django will store all the static files
+STATIC_ROOT  = '/static'
