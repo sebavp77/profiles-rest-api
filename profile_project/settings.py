@@ -122,7 +122,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 ##############################################################################
 ##############################################################################
@@ -132,4 +132,4 @@ AUTH_USER_MODEL = 'profiles_api.UserProfile'
 
 ####### Adding a static root to debug for the virutal server ###############
 # Here Django will store all the static files
-STATIC_ROOT  = '/static'
+STATIC_ROOT  = 'static/'
